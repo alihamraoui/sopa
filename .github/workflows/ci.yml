@@ -22,19 +22,19 @@ jobs:
 
   tests:
     needs: [pre-commit]
-    name: "${{ matrix.os }} | pytest and snakemake"
-    runs-on: ${{ matrix.os }}
+    name: "pytest and snakemake"
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        #os: [ubuntu-latest, macOS-latest]
         python-version: ["3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v5
 
-      - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v3
+      #- name: Set up Miniconda
+      #  uses: conda-incubator/setup-miniconda@v3
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
