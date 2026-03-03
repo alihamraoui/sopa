@@ -33,6 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
         with:
