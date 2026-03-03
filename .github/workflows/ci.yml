@@ -14,7 +14,7 @@ env:
 
 jobs:
   pre-commit:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
@@ -22,11 +22,12 @@ jobs:
 
   tests:
     needs: [pre-commit]
-    name: "pytest and snakemake"
-    runs-on: ubuntu-latest
+    name: "${{ matrix.os }} | pytest and snakemake"
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
+        os: [ubuntu-latest, macOS-latest]
         python-version: ["3.11", "3.12", "3.13"]
 
     steps:
@@ -48,8 +49,11 @@ jobs:
 
   test_wsi:
     needs: [pre-commit]
-    name: "pytest wsi"
-    runs-on: macOS-latest
+    name: "${{ matrix.os }} | pytest wsi"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v5
@@ -65,8 +69,11 @@ jobs:
 
   test_cellpose_v4:
     needs: [pre-commit]
-    name: "pytest cellpose v4"
-    runs-on: macos-latest
+    name: "${{ matrix.os }} | pytest cellpose v4"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
 
     steps:
       - uses: actions/checkout@v5
@@ -82,9 +89,11 @@ jobs:
 
   test_pip_install:
     needs: [pre-commit]
-    name: "pytest with pip install"
-    runs-on: ubuntu-latest
-
+    name: "${{ matrix.os }} | pytest with pip install"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
     steps:
       - uses: actions/checkout@v5
 
